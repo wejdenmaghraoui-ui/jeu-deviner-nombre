@@ -1,0 +1,89 @@
+# 🛠️ Documentation Technique - Devine le Nombre
+
+## 📌 1. Architecture du projet
+
+Le projet est constitué de *quatre* composants principaux :
+
+- **Serveur (jeu.py)** : Gère le nombre secret, la logique du jeu et les connexions des clients via socket.
+- **Client GUI (client_gui.py)** : Interface utilisateur avec Tkinter, permettant aux joueurs humains de participer.
+- **Agent IA DRL (drl_agent.py)** : Agent intelligent entraîné avec un environnement personnalisé Gym, utilisant stable-baselines3.
+- **Environnement DRL (environment.py)** : Définition de l’environnement Gym, permettant à l'IA d'apprendre à deviner plus efficacement.
+
+---
+
+## 🌐 2. Communication Réseau
+
+- Utilisation des *sockets Python* avec le module socket.
+- Chaque client ouvre une *connexion TCP* avec le serveur via socket.connect().
+- Le serveur utilise socket.listen() et threading.Thread pour gérer *plusieurs clients simultanément*.
+- *Protocole de communication* : Textuel (chaîne de caractères), encodé en *UTF-8*.
+
+---
+
+## 🎨 3. Interface Utilisateur (Tkinter)
+
+- Utilisation de la bibliothèque tkinter pour créer une interface *intuitive* :
+    - ✅ *Zone de saisie* du nombre à deviner.
+    - ✅ *Zone d'affichage* des messages en temps réel.
+    - ✅ *Scoreboard* affichant le gagnant et le temps écoulé.
+
+---
+
+## 🤖 4. Agent DRL (Deep Reinforcement Learning)
+
+- *Bibliothèques utilisées* :
+    - gym pour l’environnement de simulation.
+    - stable-baselines3 pour entraîner l’agent (algorithmes PPO, DQN...).
+- **Environnement personnalisé (environment.py)** :
+    - 🔹 *Observation* : État actuel, feedback précédent.
+    - 🔹 *Actions* : Proposition d’un nombre entre 1 et 100.
+    - 🔹 *Récompenses* :
+      - -1 par tentative incorrecte.
+      - +100 si le bon nombre est trouvé.
+
+✅ *L’agent est entraîné en local* puis connecté au serveur en *mode joueur automatique*.
+
+---
+
+## 📊 5. Scoreboard
+
+- *Suivi dynamique* des performances des joueurs et de l’IA.
+- Le serveur *enregistre* :
+  - 🎯 Le *nombre de tentatives* par joueur.
+  - ⏳ Le *temps écoulé* avant de deviner le nombre.
+- Les résultats sont *envoyés à tous les clients* et affichés *dans l'interface graphique*.
+
+---
+
+## 📦 6. Dépendances
+
+Installez les bibliothèques requises avant l’exécution :
+pip install stable-baselines3 gym pygame tkinter
+
+---
+
+## 🚀 7. Déploiement
+
+### 🎮 Lancer le serveur :
+python3 jeu.py
+
+### 👨‍💻 Lancer un joueur humain :
+python3 client_gui.py
+
+### 🤖 Lancer l'agent IA DRL (optionnel) :
+python3 drl_agent.py
+
+---
+
+## 🗂️ 8. Structure du dépôt GitHub
+
+/devine-le-nombre/
+│
+├── jeu.py                 # Code principal serveur/client
+├── drl_agent.py           # Agent IA avec DRL
+├── client_gui.py          # Interface graphique (Tkinter)
+├── environment.py         # Environnement Gym personnalisé
+├── README.md              # Documentation principale
+├── documentation.pdf      # (ce fichier)
+├── architecture_jeu.png   # Diagramme de l'architecture
+└── requirements.txt       # Liste des dépendances (optionnel)
