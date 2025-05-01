@@ -47,7 +47,7 @@ class ClientApp:
                 break
 
 # Démarrage de l'application client
-if _name_ == "_main_":
+if __name__ == "_main_":
     root = tk.Tk()
     app = ClientApp(root)
     root.mainloop()
