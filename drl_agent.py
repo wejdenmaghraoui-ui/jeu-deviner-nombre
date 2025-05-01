@@ -1,6 +1,6 @@
-import gym
-import numpy as np
-from stable_baselines3 import PPO
+import gym # type: ignore
+import numpy as np # type: ignore
+from stable_baselines3 import PPO # type: ignore
 
 # Chargement de l’environnement personnalisé
 env = gym.make("GuessNumber-v0")
