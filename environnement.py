@@ -1,6 +1,6 @@
-import gym
-from gym import spaces
-import numpy as np
+import gym # type: ignore
+from gym import spaces # type: ignore
+import numpy as np # type: ignore
 import random
 
 class GuessNumberEnv(gym.Env):
