@@ -1,29 +1,28 @@
 import socket
 import time
-import gym
-import numpy as np
-from stable_baselines3 import PPO
-from environment import GuessNumberEnv
+import gym # type: ignore
+import numpy as np # type: ignore
+from stable_baselines3 import PPO # type: ignore
+from environment import GuessNumberEnv # type: ignore
 
-‎# إعدادات الاتصال بالسيرفر
+# إعدادات الاتصال بالسيرفر
 HOST = '127.0.0.1'
 PORT = 5555
 
-‎# تحميل البيئة و تدريب النموذج
+# تحميل البيئة و تدريب النموذج
 env = GuessNumberEnv()
 model = PPO("MlpPolicy", env, verbose=0)
 model.learn(total_timesteps=10000)
-
-‎# الاتصال بالسيرفر
+# الاتصال بالسيرفر
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((HOST, PORT))
 print("[+] L'IA est connectée au serveur.")
 
-‎# استقبال أول رسالة
+# استقبال أول رسالة
 msg = client.recv(1024).decode()
 print(msg)
 
-‎# تبدأ اللعبة
+# تبدأ اللعبة
 done = False
 obs = env.reset()
 
